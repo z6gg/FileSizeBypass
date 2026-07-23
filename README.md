@@ -22,9 +22,10 @@ vencord plugin that allows you to bypass discord's file upload limit without nit
 5. after it's done, the link gets inserted in the chat box
 
 ## Installation
-### Auto Install
+### Auto Install (Recommended)
 1. download the `installer.bat` in the releases, place it somewhere you will keep vencord in
-2. run it, the first run might take a few minutes, wait until you get prompted to choose which discord version you wanna patch, if you don't know just click enter
+2. run it, the first run might take a few minutes, 
+3. wait until you get prompted to choose which discord version you wanna patch, if you don't know just click enter
 discord will then close if it was open, and you're done
 go to your plugins then click "Show All" in the filters section and choose "Show Userplugins" where you'll find the plugin
 

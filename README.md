@@ -28,6 +28,7 @@ vencord plugin that allows you to bypass discord's file upload limit without nit
 3. wait until you get prompted to choose which discord version you wanna patch, if you don't know just click enter
 discord will then close if it was open, and you're done
 go to your plugins then click "Show All" in the filters section and choose "Show Userplugins" where you'll find the plugin
+don't move or delete the created folder
 
 ### Manual Install
 1. choose where you want vencord to be and run a command prompt there
@@ -57,12 +58,14 @@ pnpm build && pnpm inject
 6. you will reach a point where it prompts you which discord version you wanna patch, choose your desired one
 7. discord will close if it was open, open it back up and go to your plugins then click "Show All" in the filters and choose "Show Userplugins" where you'll find the plugin
 
+don't move or delete the created folder
 if the plugin ever gets updated, cd into your `src\userplugins\FileSizeBypass` and repeat the following commands:
 ```
 git pull
 cd ../../..
 pnpm build && pnpm inject
 ```
+
 
 ## Disclaimer
 

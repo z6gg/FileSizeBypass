@@ -58,7 +58,7 @@ pnpm build && pnpm inject
 
 if the plugin ever gets updated, cd into your `src\userplugins\` and repeat the following commands:
 ```
-git clone https://github.com/z6gg/FileSizeBypass.git
+git pull
 cd ../..
 pnpm build && pnpm inject
 ```

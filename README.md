@@ -1,6 +1,7 @@
 # FileSizeBypass
 
 vencord plugin that allows you to bypass discord's file upload limit without nitro, by using an external host
+
 catbox might not support some file types
 
 ## Features/Settings

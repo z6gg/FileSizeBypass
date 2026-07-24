@@ -81,4 +81,4 @@ this plugin uploads your files to a third party host (Catbox) Vencord isn't affi
 
 ---
 
-*Vibecoded with Claude Sonnet 5 and Gemini 3.6 Thinking.*
+*Vibe coded with Claude Sonnet 5 and Gemini 3.6 Thinking.*

@@ -33,6 +33,8 @@ discord will then close if it was open, and you're done
 
 go to your plugins then click "Show All" in the filters section and choose "Show Userplugins" where you'll find the plugin
 
+run the same script to receive an update if the plugin ever gets updated
+
 don't move or delete the created folder
 
 ### Manual Install

@@ -8,7 +8,7 @@ catbox might not support some file types
 
 - works seamlessly with files uploaded by drag & drop or files uploaded with the file picker
 - configurable file size threshold to choose the minimum file size needed to utilize the plugin
-- a toggle to route all uploaded files to catbox anyway
+- a toggle to route all uploaded files to catbox, ignoring the threshold
 - two host options:
   - [catbox.moe](https://catbox.moe/) - permanent hosting, no account needed, 200mb limit, optional userhash if you want to manage your uploads later
   - [litterbox.catbox.moe](https://litterbox.catbox.moe/) - temporary hosting, no account needed, 1gb limit, with configurable file expiry time

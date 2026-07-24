@@ -25,7 +25,7 @@ catbox might not support some file types
 
 ## Installation
 ### Auto Install (Recommended)
-1. download the `installer.bat` in the releases, place it somewhere you will keep vencord in
+1. download the installer script in the releases, place it somewhere you will keep vencord in
 2. run it, the first run might take a few minutes, 
 3. wait until you get prompted to choose which discord version you wanna patch, if you don't know just click enter
 discord will then close if it was open, and you're done

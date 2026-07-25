@@ -77,7 +77,7 @@ pnpm build && pnpm inject
 
 ## Disclaimer
 
-this plugin uploads your files to a third party host (Catbox) Vencord isn't affiliated with. uploaded files are subject to those hosts' terms, size limits, and retention policies, so don't upload anything you wouldn't be comfortable having sit on a third-party server
+this plugin uploads your files to a third party host (Catbox) Vencord isn't affiliated with. uploaded files are subject to those hosts' terms, size limits, and retention policies, so don't upload anything you wouldn't be comfortable having sit on a third-party server.
 
 ---
 

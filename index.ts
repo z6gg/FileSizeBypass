@@ -88,7 +88,8 @@ function ensureContainer(): HTMLElement {
         position: fixed;
         bottom: 16px;
         right: 16px;
-        z-index: 9999;
+        z-index: 2147483647;
+        pointer-events: auto;
         display: flex;
         flex-direction: column-reverse;
         gap: 8px;
@@ -115,6 +116,7 @@ function createProgressRow(fileName: string, uploadId: string): ProgressUI {
         border-radius: 8px;
         padding: 10px 12px;
         width: 260px;
+        pointer-events: auto;
         box-shadow: 0 2px 10px rgba(0,0,0,0.35);
         font-size: 13px;
         font-family: var(--font-primary, sans-serif);
@@ -130,14 +132,20 @@ function createProgressRow(fileName: string, uploadId: string): ProgressUI {
     const cancelBtn = document.createElement("span");
     cancelBtn.textContent = "✕";
     cancelBtn.title = "Cancel upload";
-    cancelBtn.style.cssText = "cursor:pointer; opacity:0.7; flex-shrink:0; user-select:none;";
+    cancelBtn.style.cssText = "cursor:pointer; opacity:0.7; flex-shrink:0; user-select:none; padding:4px 6px; margin:-4px -6px; pointer-events:auto;";
     cancelBtn.onmouseenter = () => (cancelBtn.style.opacity = "1");
     cancelBtn.onmouseleave = () => (cancelBtn.style.opacity = "0.7");
-    cancelBtn.onclick = () => {
+    cancelBtn.addEventListener("click", e => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (ui.finished) {
+            fadeOutRow(ui);
+            return;
+        }
         try { VencordNative.pluginHelpers.FileSizeBypass.cancelUpload(uploadId); } catch { }
         status.textContent = "Cancelled";
         finishRow(ui, 1000);
-    };
+    }, true);
 
     label.append(nameSpan, cancelBtn);
 
@@ -180,7 +188,6 @@ function finishRow(ui: ProgressUI, delay = 4000) {
     if (ui.finished) return;
     ui.finished = true;
     ui.cancelBtn.title = "Close";
-    ui.cancelBtn.onclick = () => fadeOutRow(ui);
     setTimeout(() => fadeOutRow(ui), delay);
 }
 

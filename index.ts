@@ -102,6 +102,8 @@ interface ProgressUI {
     bar: HTMLElement;
     status: HTMLElement;
     cancelBtn: HTMLElement;
+    finished?: boolean;
+    fading?: boolean;
 }
 
 function createProgressRow(fileName: string, uploadId: string): ProgressUI {
@@ -131,7 +133,11 @@ function createProgressRow(fileName: string, uploadId: string): ProgressUI {
     cancelBtn.style.cssText = "cursor:pointer; opacity:0.7; flex-shrink:0; user-select:none;";
     cancelBtn.onmouseenter = () => (cancelBtn.style.opacity = "1");
     cancelBtn.onmouseleave = () => (cancelBtn.style.opacity = "0.7");
-    cancelBtn.onclick = () => VencordNative.pluginHelpers.FileSizeBypass.cancelUpload(uploadId);
+    cancelBtn.onclick = () => {
+        try { VencordNative.pluginHelpers.FileSizeBypass.cancelUpload(uploadId); } catch { }
+        status.textContent = "Cancelled";
+        finishRow(ui, 1000);
+    };
 
     label.append(nameSpan, cancelBtn);
 
@@ -149,7 +155,8 @@ function createProgressRow(fileName: string, uploadId: string): ProgressUI {
     row.append(label, track, status);
     ensureContainer().appendChild(row);
 
-    return { row, bar, status, cancelBtn };
+    const ui: ProgressUI = { row, bar, status, cancelBtn };
+    return ui;
 }
 
 function buildLinkText(url: string, fileName: string): string {
@@ -161,9 +168,20 @@ function buildLinkText(url: string, fileName: string): string {
     return `[${label}](${url})`;
 }
 
-function finishRow(ui: ProgressUI) {
-    ui.cancelBtn.style.display = "none";
-    setTimeout(() => ui.row.remove(), 4000);
+function fadeOutRow(ui: ProgressUI) {
+    if (ui.fading) return;
+    ui.fading = true;
+    ui.row.style.transition = "opacity 2.5s linear";
+    ui.row.style.opacity = "0";
+    setTimeout(() => ui.row.remove(), 2500);
+}
+
+function finishRow(ui: ProgressUI, delay = 4000) {
+    if (ui.finished) return;
+    ui.finished = true;
+    ui.cancelBtn.title = "Close";
+    ui.cancelBtn.onclick = () => fadeOutRow(ui);
+    setTimeout(() => fadeOutRow(ui), delay);
 }
 
 const activePolls = new Set<ReturnType<typeof setInterval>>();
@@ -190,14 +208,15 @@ function pollUpload(uploadId: string, fileName: string, ui: ProgressUI) {
             showToast(`Uploaded ${fileName}`, Toasts.Type.SUCCESS);
         } else if (state.status === "cancelled") {
             ui.status.textContent = "Cancelled";
+            finishRow(ui, 1000);
             showToast(`Cancelled upload of ${fileName}`, Toasts.Type.MESSAGE);
         } else {
             ui.status.textContent = `Failed: ${state.error ?? "Unknown error"}`;
             showToast(`Failed to upload ${fileName}: ${state.error ?? "Unknown error"}`, Toasts.Type.FAILURE);
         }
 
-        VencordNative.pluginHelpers.FileSizeBypass.clearUpload(uploadId);
         finishRow(ui);
+        try { VencordNative.pluginHelpers.FileSizeBypass.clearUpload(uploadId); } catch { }
     }, 300);
 
     activePolls.add(interval);
